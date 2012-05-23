@@ -34,7 +34,7 @@
       preset = locale.getLanguage()+"-"+locale.getCountry();
     }
   %>
-  <title>Knowledge Vault Login</title>
+  <title>bullant Login</title>
 </head>
 <body onload="document.forms[0].elements[0].focus()">
 <% if (!FormatUtil.isMobile(request)) { %>

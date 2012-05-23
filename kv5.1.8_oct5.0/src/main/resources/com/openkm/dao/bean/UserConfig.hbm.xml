@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.dao.bean.UserConfig" table="OKM_USER_CONFIG">
+    <id name="user" column="UC_USER" length="127"><generator class="assigned"/></id>
+    <property name="homePath" column="UC_HOME_PATH" not-null="true"/>
+    <property name="homeUuid" column="UC_HOME_UUID" not-null="true"/>
+    <property name="homeType" column="UC_HOME_TYPE" not-null="true"/>
+    <many-to-one name="profile" column="UC_PROFILE" class="com.openkm.dao.bean.Profile" lazy="false"/>
+  </class>
+</hibernate-mapping>

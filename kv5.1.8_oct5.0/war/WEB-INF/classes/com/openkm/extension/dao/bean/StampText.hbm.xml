@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.extension.dao.bean.StampText" table="OKM_STAMP_TEXT">
+    <id name="id" column="ST_ID"><generator class="native"/></id>
+    <property name="name" column="ST_NAME" not-null="true"/>
+    <property name="description" column="ST_DESCRIPTION" length="512"/>
+    <property name="text" column="ST_TEXT" not-null="true"/>
+    <property name="layer" column="ST_LAYER" not-null="true"/>
+    <property name="opacity" column="ST_OPACITY" not-null="true"/>
+    <property name="size" column="ST_SIZE" not-null="true"/>
+    <property name="color" column="ST_COLOR" not-null="true"/>
+    <property name="rotation" column="ST_ROTATION" not-null="true"/>
+    <property name="align" column="ST_ALIGN" not-null="true"/>
+    <property name="exprX" column="ST_EXPR_X" not-null="true"/>
+    <property name="exprY" column="ST_EXPR_Y" not-null="true"/>
+    <property name="active" column="ST_ACTIVE" type="true_false" not-null="true"/>
+    <set name="users" table="OKM_STAMP_TEXT_USER" lazy="false">
+      <key column="STU_ID" not-null="true"/>
+      <element column="STU_USER" type="string"/>
+    </set>
+  </class>
+</hibernate-mapping>

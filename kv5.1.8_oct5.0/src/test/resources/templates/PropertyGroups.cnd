@@ -1,0 +1,8 @@
+<okm = 'http://www.openkm.org/1.0'>
+<okg = 'http://www.openkm.org/group/1.0'>
+<okp = 'http://www.openkm.org/group/property/1.0'>
+ 
+[okg:tpl] mixin
+- okp:tpl.name (string) = '' autocreated
+- okp:tpl.bird_date (string) = '' autocreated
+- okp:tpl.language (string) = '' autocreated

@@ -1,0 +1,121 @@
+@CHARSET "UTF-8";
+
+body {
+  margin: 10px;
+  background-color: #E5E5E1;
+  color: #333333;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 11px;
+}
+
+body, td, a, div, p {
+  font-size: 10px;
+  font-family: verdana, arial, sans-serif;
+}
+
+textarea, input, select {
+  border: 1px solid #A5A596;
+  font-size: 10px;
+  font-family: verdana, arial, sans-serif
+}
+
+label {
+  font-weight: bold;
+}
+
+div#box {
+  background-color: #F1F3F5;
+  border: 1px solid #CCCCCC;
+  width: 405px;
+  height: 285px;
+  margin: 40px auto 30px auto;
+}
+
+div#logo {
+  background-image: url('../logo/login');
+  background-repeat: no-repeat;
+  width: 316px;
+  margin: 15px auto 5px auto;
+  height: 75px;
+}
+
+div#text {
+  width: 150px;
+  padding: 0px 10px 0px 10px;
+  text-align: center;
+  float: left;
+}
+
+div#error {
+  color: #F00;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  height: 18px;
+  margin-bottom: 5px;
+}
+
+div#form {
+  background-color: #E9ECEF;
+  border: 1px solid #CCCCCC;
+  padding: 10px;
+  width: 200px;
+  float: left;
+}
+
+div#box-error {
+  background-color: #F1F3F5;
+  border: 1px solid #CCCCCC;
+  width: 405px;
+  height: 224px;
+  margin: 6em auto 6em auto;
+}
+
+div#text-error {
+  width: 50px;
+  padding: 10px;
+  float: left;
+}
+
+div#form-error {
+  background-color: #E9ECEF;
+  border: 1px solid #CCCCCC;
+  padding: 10px;
+  width: 300px;
+  height: 95px;
+  float: left;
+}
+
+/* DEMO */
+table.demo {
+  background-color: #F1F3F5;
+  border: 1px solid #CCCCCC;
+  width: 380px;
+}
+
+table.demo td {
+  text-align: center;
+  padding: 7px;
+}
+
+td.demo_alert {
+  background-color: #DA3737;
+  font-weight: bold;
+}
+
+td.demo_title {
+  background-color: #002B4C;
+  color: #fff;
+  font-weight: bold;
+}
+
+table.demo_list {
+}
+
+table.demo_list th {
+  font-weight: bold;
+}
+
+table.demo_list td {
+  padding: 1px;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.dao.bean.cache.UserItems" table="OKM_USER_ITEMS">
+    <id name="user" column="UI_USER"><generator class="assigned"/></id>
+    <property name="folders" column="UI_FOLDERS"/>
+    <property name="documents" column="UI_DOCUMENTS"/>
+    <property name="mails" column="UI_MAILS"/>
+    <property name="size" column="UI_SIZE"/>
+  </class>
+</hibernate-mapping>

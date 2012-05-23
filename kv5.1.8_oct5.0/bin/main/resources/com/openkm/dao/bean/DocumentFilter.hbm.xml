@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.dao.bean.DocumentFilter" table="OKM_DOCUMENT_FILTER">
+    <id name="id" column="DF_ID"><generator class="native"/></id>
+    <property name="type" column="DF_TYPE" not-null="true"/>
+    <property name="value" column="DF_VALUE" not-null="true"/>
+    <property name="active" column="DF_ACTIVE" type="true_false" not-null="true"/>
+    <set name="filterRules" table="OKM_DOCUMENT_FILTER_RULE" order-by="DFR_ID asc" cascade="all-delete-orphan" lazy="false">
+      <key column="DFR_DOCUMENT_FILTER" not-null="true"/>
+      <one-to-many class="com.openkm.dao.bean.DocumentFilterRule"/>
+    </set>
+  </class>
+</hibernate-mapping>

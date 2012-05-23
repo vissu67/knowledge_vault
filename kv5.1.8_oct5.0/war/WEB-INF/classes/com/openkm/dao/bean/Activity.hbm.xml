@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.dao.bean.Activity" table="OKM_ACTIVITY">
+    <id name="id" column="ACT_ID"><generator class="native"/></id>
+    <property name="date" column="ACT_DATE" not-null="true"/>
+    <property name="user" column="ACT_USER" not-null="true" length="127"/>
+    <property name="action" column="ACT_ACTION" not-null="true" length="127"/>
+    <property name="item" column="ACT_ITEM" length="127"/>
+    <property name="params" column="ACT_PARAMS" type="text"/>
+  </class>
+</hibernate-mapping>

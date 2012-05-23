@@ -1,0 +1,237 @@
+/**
+ *  OpenKM, Open Document Management System (http://www.openkm.com)
+ *  Copyright (c) 2006-2011  Paco Avila & Josep Llort
+ *
+ *  No bytes were intentionally harmed during the development of this application.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+package com.openkm.frontend.client.panel.center;
+
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.openkm.frontend.client.util.Util;
+import com.openkm.frontend.client.widget.filebrowser.FileBrowser;
+import com.openkm.frontend.client.widget.properties.TabMultiple;
+
+/**
+ * Browser panel
+ * 
+ * @author jllort
+ *
+ */
+public class Browser extends Composite {
+	
+	private final static int IE_SIZE_RECTIFICATION = (Util.getUserAgent().startsWith("ie")?2:0);
+	private final static int SPLITTER_HEIGHT = 10;
+	
+	private VerticalSplitPanelExtended verticalSplitPanel;
+	private VerticalPanel tabPropertiesPanel;
+	
+	public FileBrowser fileBrowser;
+	public TabMultiple tabMultiple;
+	
+	private boolean isResizeInProgress = false;
+	public int width = 0;
+	public int height = 0;
+	public int topHeight = 0;
+	public int bottomHeight = 0;
+	
+	/**
+	 * Browser
+	 */
+	@SuppressWarnings("deprecation")
+	public Browser() {
+		verticalSplitPanel = new VerticalSplitPanelExtended();
+		fileBrowser = new FileBrowser();
+		tabPropertiesPanel = new VerticalPanel();
+		tabMultiple = new TabMultiple();
+		
+		tabPropertiesPanel.add(tabMultiple);
+		tabPropertiesPanel.setStyleName("okm-Properties-Tab");
+
+		verticalSplitPanel.getSplitPanel().setTopWidget(fileBrowser);
+		verticalSplitPanel.getSplitPanel().setBottomWidget(tabPropertiesPanel);
+		
+		verticalSplitPanel.addMouseMoveHandler(new MouseMoveHandler() {
+			@Override
+			public void onMouseMove(MouseMoveEvent event) {
+				if (verticalSplitPanel.getSplitPanel().isResizing()) {
+					if (!isResizeInProgress) {
+						isResizeInProgress = true;
+						onSplitResize();
+					}
+				} 
+			}
+		});
+		
+		verticalSplitPanel.addMouseUpHandler(new MouseUpHandler() {
+			@Override
+			public void onMouseUp(MouseUpEvent event) {
+				if (isResizeInProgress) {
+					isResizeInProgress = false;
+				}
+			}
+		});
+		
+		initWidget(verticalSplitPanel);
+	}
+	
+	/**
+	 * onSplitResize
+	 */
+	public void onSplitResize() {
+		final int resizeUpdatePeriod = 20; // ms ( Internally splitter is refreshing each 20 ms )
+		if (isResizeInProgress) {
+			new Timer() {
+				@Override
+				public void run() {
+					resizePanels(); // Always making resize
+					if (isResizeInProgress) {
+						onSplitResize();
+					} else if (Util.getUserAgent().equals("chrome")) {
+						new Timer() {
+							@Override
+							public void run() {
+								resizePanels();
+							}
+							
+						}.schedule(250);
+					}
+				}
+			}.schedule(resizeUpdatePeriod);
+		}
+	}
+	
+	/**
+	 * Refresh language values
+	 */
+	public void langRefresh() {
+		fileBrowser.langRefresh();	
+		tabMultiple.langRefresh();
+	}
+	
+	/**
+	 * Sets the size on initialization
+	 * 
+	 * @param width The max width of the widget
+	 * @param height The max height of the widget
+	 */
+	@SuppressWarnings("deprecation")
+	public void setSize(int width, int height) {
+		this.width = width;
+		this.height = height;
+		topHeight = (height-SPLITTER_HEIGHT)/2;
+		bottomHeight = height - (topHeight + SPLITTER_HEIGHT);
+		verticalSplitPanel.setPixelSize(width, height);
+		verticalSplitPanel.getSplitPanel().setSplitPosition(""+topHeight);		
+		resize();
+	}
+	
+	/**
+	 * resize
+	 */
+	private void resize() {
+		verticalSplitPanel.setWidth(""+width);
+		fileBrowser.setPixelSize(width, topHeight);
+		// Resize the scroll panel on filebrowser
+		// We substrat 2 pixels for fileBrowser pixels on width and the status fixed sixe on height 
+		fileBrowser.table.setPixelSize(width-2+IE_SIZE_RECTIFICATION, topHeight-2-FileBrowser.STATUS_SIZE+IE_SIZE_RECTIFICATION);
+		fileBrowser.table.fillWidth();
+		// Resize the scroll panel on tab properties 
+		// We substract 2 pixels for width and heigh generated by border line
+		tabMultiple.setPixelSize(width-2,bottomHeight-2);
+		tabPropertiesPanel.setPixelSize(width, bottomHeight);
+	}
+	
+	/**
+	 * setWidth
+	 * 
+	 * @param width
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+		
+		// To solve some problems with chrome
+		if (Util.getUserAgent().equals("chrome")) {
+			if (topHeight-15>0 && bottomHeight-15>0 && this.width-15>0) {
+				topHeight -= 15;
+				bottomHeight -= 15;
+				this.width -= 15;
+				resize();
+				topHeight += 15;
+				bottomHeight += 15;
+				this.width += 15;
+			}
+		}
+	
+		resize();
+	}
+	
+	/**
+	 * Sets the panel width on resizing
+	 * 
+	 * @param left
+	 * @param right
+	 */
+	private void resizePanels() {
+		int total = verticalSplitPanel.getOffsetHeight();
+		String value = DOM.getStyleAttribute (DOM.getChild(DOM.getChild(verticalSplitPanel.getSplitPanel().getElement(),0), 0), "height");
+		if (value.contains("px")) { value = value.substring(0,value.indexOf("px")); }
+		topHeight = Integer.parseInt(value);
+		value = DOM.getStyleAttribute (DOM.getChild(DOM.getChild(verticalSplitPanel.getSplitPanel().getElement(),0), 2), "top");
+		if (value.contains("px")) { value = value.substring(0,value.indexOf("px")); }
+		bottomHeight = total - Integer.parseInt(value);		
+		
+		// To solve some problems with chrome
+		if (Util.getUserAgent().equals("chrome")) {
+			if (topHeight-15>0 && bottomHeight-15>0 && this.width-15>0) {
+				topHeight -= 15;
+				bottomHeight -= 15;
+				this.width -= 15;
+				resize();
+				topHeight += 15;
+				bottomHeight += 15;
+				this.width += 15;
+			}
+		}
+		resize();
+	}
+	
+	/**
+	 * refreshSpliterAfterAdded
+	 * 
+	 */
+	@SuppressWarnings("deprecation")
+	public void refreshSpliterAfterAdded() {
+		verticalSplitPanel.getSplitPanel().setSplitPosition(""+topHeight);
+		if (Util.getUserAgent().equals("chrome")) {
+			new Timer() {
+				@Override
+				public void run() {
+					resizePanels();
+				}
+				
+			}.schedule(250);
+		}
+	}
+}

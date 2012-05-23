@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.dao.bean.DatabaseMetadataType" table="OKM_DB_METADATA_TYPE">
+    <id name="id" column="DMT_ID"><generator class="native"/></id>
+    <property name="table" column="DMT_TABLE" not-null="true" length="32"/>
+    <property name="virtualColumn" column="DMT_VIRTUAL_COLUMN" not-null="true" length="32"/>
+    <property name="realColumn" column="DMT_REAL_COLUMN" not-null="true" length="6"/>
+    <property name="type" column="DMT_TYPE" not-null="true" length="32"/>
+  </class>
+
+  <class name="com.openkm.dao.bean.DatabaseMetadataValue" table="OKM_DB_METADATA_VALUE">
+    <id name="id" column="DMV_ID"><generator class="native"/></id>
+    <property name="table" column="DMV_TABLE" not-null="true" length="32"/>
+    <property name="pk" column="DMV_PK" not-null="true"/>
+    <property name="col00" column="DMV_COL00" />
+    <property name="col01" column="DMV_COL01" />
+    <property name="col02" column="DMV_COL02" />
+    <property name="col03" column="DMV_COL03" />
+    <property name="col04" column="DMV_COL04" />
+    <property name="col05" column="DMV_COL05" />
+    <property name="col06" column="DMV_COL06" />
+    <property name="col07" column="DMV_COL07" />
+    <property name="col08" column="DMV_COL08" />
+    <property name="col09" column="DMV_COL09" />
+  </class>
+</hibernate-mapping>

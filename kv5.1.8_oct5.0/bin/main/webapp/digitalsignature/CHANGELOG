@@ -1,0 +1,57 @@
+CryptoApplet Version 2.1.0 - High level Changelog. 
+
+CryptoApplet has been refactored almost from scratch 
+since version 2.0.5 was published, that make us really 
+difficult to list the changes from a code perspective so, 
+we are going to describe the changes from a functionality 
+perspective. The changes are as follow: 
+
+  - New modularized structure: CryptoApplet's core has 
+    been splitted into modules organized in base of its 
+    functionality, thus i.e. the pdf signing functionality 
+    is fully developed into uji-format-pdf module, the odf 
+    in uji-format-odf and so on.
+ 
+  - This modularization let the developers evolve the specific 
+    layers in order to build them as a library, being a fully 
+    funcional one in order to access certificates and calculating 
+    signatures.
+  
+  - Some signature formats has been added in this new version 
+    like odf, facturae, XAdES-BES and XAdES-EPES based on JXAdES 
+    and XAdES based on top of the mityc libraries. 
+
+  - The complete list of the functions exposed by the applet is 
+    (they are self-explicative): 
+
+    public void setLanguage(final String lang)                                                                                             
+    public void setJavaScriptCallbackFunctions(final String ok, final String error,...                                                    
+    public void setSignatureOutputFormat(final String format)                                                                              
+    public void setInputDataEncoding(final String encoding)                                                                                
+    public void setOutputDataEncoding(final String encoding)
+    public void setSSLServerCertificateVerification(final String value)
+    public void setXadesSignerRole(final String signerrole)
+    public void setXadesFileName(final String filename)
+    public void setXadesFileMimeType(final String mimetype)
+    public void setIsBigFile(final String bigfile)
+    public void signDataParamToFunc(final String toSign, final String funcOut)
+    public void signDataParamToFunc(final String toSign, final String funcOut,
+    public void signDataParamToURL(final String toSign, final String outputURL)
+    public void signDataParamToURL(final String toSign, final String outputURL,
+    public void signDataUrlToUrl(final String inputURLs, final String outputURLs)
+    public void signDataUrlToUrl(final String inputURLs, final String outputURLs,
+    public void signDataUrlToFunc(final String inputURLs, final String funcOut)
+    public void signHashParamToFunc(String toSign, String funcOut)
+    public void signHashParamlToUrl(String toSign, String outputURL)
+    public void signHashParamlToUrl(String toSign, String outputURL, String[] postVariableName)
+    public void setAllowedCertificate(final String Issuer, final String SerialNo)
+    public String[] verifyXAdESDataUrl(final String input)
+    public void doTest()
+    public void testSetup(String appletTag, String input, String output)
+    public String getAppletInfo()
+    public String getAppletVersion()
+    public String getJavaVersion()
+
+  A full operational example for most of the formats can be found 
+  at forja.uji.es
+

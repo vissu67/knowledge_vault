@@ -1,0 +1,12 @@
+<okm = 'http://www.openkm.org/1.0'>
+<okg = 'http://www.openkm.org/group/1.0'>
+<okp = 'http://www.openkm.org/group/property/1.0'>
+
+[okg:consulting] mixin
+- okp:consulting.name (string) = '' autocreated
+- okp:consulting.comment (string) = '' autocreated
+
+[okg:technology] mixin
+- okp:technology.language (string) = '' autocreated
+- okp:technology.comment (string) = '' autocreated
+- okp:technology.description (string) = '' autocreated

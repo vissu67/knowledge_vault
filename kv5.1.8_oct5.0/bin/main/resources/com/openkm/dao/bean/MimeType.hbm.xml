@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.dao.bean.MimeType" table="OKM_MIME_TYPE">
+    <id name="id" column="MT_ID"><generator class="native"/></id>
+    <property name="name" column="MT_NAME" not-null="true" unique="true"/>
+    <property name="imageContent" column="MT_IMAGE_CONTENT" type="text" not-null="true"/>
+    <property name="imageMime" column="MT_IMAGE_MIME" not-null="true"/>
+    <set name="extensions" table="OKM_MIME_TYPE_EXTENSION" lazy="false">
+      <key column="MTE_ID" not-null="true"/>
+      <element column="MTE_NAME" type="string"/>
+    </set>
+  </class>
+</hibernate-mapping>

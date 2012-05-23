@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.dao.bean.Bookmark" table="OKM_BOOKMARK">
+    <id name="id" column="BM_ID"><generator class="native"/></id>
+    <property name="user" column="BM_USER" not-null="true" length="127"/>
+    <property name="name" column="BM_NAME" not-null="true"/>
+    <property name="uuid" column="BM_UUID" not-null="true"/>
+    <property name="type" column="BM_TYPE" not-null="true"/>
+  </class>
+</hibernate-mapping>

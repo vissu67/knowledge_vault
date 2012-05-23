@@ -1,0 +1,72 @@
+<nt = 'http://www.jcp.org/jcr/nt/1.0'>
+<jcr = 'http://www.jcp.org/jcr/1.0'>
+<mix = 'http://www.jcp.org/jcr/mix/1.0'>
+<okm = 'http://www.openkm.org/1.0'>
+
+[mix:accessControlled] mixin
+- okm:authUsersRead (string) multiple mandatory
+- okm:authUsersWrite (string) multiple mandatory
+- okm:authUsersDelete (string) multiple mandatory
+- okm:authUsersSecurity (string) multiple mandatory
+- okm:authRolesRead (string) multiple mandatory
+- okm:authRolesWrite (string) multiple mandatory
+- okm:authRolesDelete (string) multiple mandatory
+- okm:authRolesSecurity (string) multiple mandatory
+
+[mix:notification] mixin
+- okm:subscriptors (string) = '' multiple autocreated
+
+[mix:scripting] mixin
+- okm:scriptCode (string) mandatory
+
+[mix:encryption] mixin
+- okm:cipherName (string) mandatory
+
+[okm:resource] > nt:resource, mix:versionable
+- okm:size (long) mandatory
+- okm:author (string) mandatory
+- okm:text (string)
+- okm:versionComment (string) copy
+
+[okm:note]
+- okm:user (string) mandatory
+- okm:date (date) mandatory
+- okm:text (string) mandatory
+
+[okm:notes] > nt:hierarchyNode
++ * (okm:note)
+
+[mix:notes] mixin
++ okm:notes (okm:notes) = okm:notes autocreated mandatory
+
+[okm:document] > nt:hierarchyNode, mix:referenceable, mix:lockable, mix:accessControlled
+- okm:author (string) mandatory
+- okm:name (string) mandatory
+- okm:language (string)
+// - okm:title (String) mandatory # Activate in OpenKM 6
+// - okm:description (String) mandatory # Activate in OpenKM 6
+- okm:keywords (string) multiple mandatory
+- okm:categories (reference) multiple mandatory
++ okm:content (okm:resource) primary mandatory
+
+[okm:folder] > nt:folder, mix:referenceable, mix:lockable, mix:accessControlled
+- okm:author (string) mandatory
+- okm:name (string) mandatory
+
+[okm:mail] > nt:folder, mix:referenceable, mix:accessControlled
+- okm:size (long) mandatory
+- okm:from (string) mandatory
+- okm:reply (string) multiple mandatory
+- okm:to (string) multiple mandatory
+- okm:cc (string) multiple mandatory
+- okm:bcc (string) multiple mandatory
+- okm:sentDate (date) mandatory
+- okm:receivedDate (date) mandatory
+- okm:subject (string) mandatory
+- okm:content (string) mandatory
+- okm:mimeType (string) mandatory
++ * (okm:document)
+
+[okm:sysConfig]
+- okm:uuid (string)
+- okm:version (string)

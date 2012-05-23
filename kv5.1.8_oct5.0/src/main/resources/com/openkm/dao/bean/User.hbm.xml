@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.dao.bean.User" table="OKM_USER">
+    <id name="id" column="USR_ID" length="127"><generator class="assigned"/></id>
+    <property name="name" column="USR_NAME" not-null="true"/>
+    <property name="password" column="USR_PASSWORD" not-null="true"/>
+    <property name="email" column="USR_EMAIL" not-null="true"/>
+    <property name="active" column="USR_ACTIVE" type="true_false" not-null="true"/>
+    <set name="roles" table="OKM_USER_ROLE" lazy="false">
+      <key column="UR_USER"/>
+      <many-to-many column="UR_ROLE" class="com.openkm.dao.bean.Role"/>
+    </set>
+  </class>
+</hibernate-mapping>

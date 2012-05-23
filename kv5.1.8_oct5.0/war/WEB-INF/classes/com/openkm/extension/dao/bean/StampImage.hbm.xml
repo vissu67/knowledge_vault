@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.openkm.extension.dao.bean.StampImage" table="OKM_STAMP_IMAGE">
+    <id name="id" column="SI_ID"><generator class="native"/></id>
+    <property name="name" column="SI_NAME" not-null="true"/>
+    <property name="description" column="SI_DESCRIPTION" length="512"/>
+    <property name="imageContent" column="SI_IMAGE_CONTENT" type="text" not-null="true"/>
+    <property name="imageMime" column="SI_IMAGE_MIME" not-null="true"/>
+    <property name="layer" column="SI_LAYER" not-null="true"/>
+    <property name="opacity" column="SI_OPACITY" not-null="true"/>
+    <property name="exprX" column="SI_EXPR_X" not-null="true"/>
+    <property name="exprY" column="SI_EXPR_Y" not-null="true"/>
+    <property name="active" column="SI_ACTIVE" type="true_false" not-null="true"/>
+    <set name="users" table="OKM_STAMP_IMAGE_USER" lazy="false">
+      <key column="SIU_ID" not-null="true"/>
+      <element column="SIU_USER" type="string"/>
+    </set>
+  </class>
+</hibernate-mapping>

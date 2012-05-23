@@ -251,7 +251,7 @@ public class Config {
 	
 	public static String SYSTEM_USER = "system";
 	public static String ADMIN_USER = "okmAdmin";
-	public static String GROUP_ADMIN = "joebloggs";  //added by vissu on oct 31th
+	public static String GROUP_ADMIN = "bullant";  //added by vissu on oct 31th
 	public static String DEFAULT_USER_ROLE;
 	public static String DEFAULT_ADMIN_ROLE;
 	//added by vissu on oct 10th
